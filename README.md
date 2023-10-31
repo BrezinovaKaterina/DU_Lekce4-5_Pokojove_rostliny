@@ -1,0 +1,1 @@
+# Poznámky k projektu
