@@ -34,40 +34,42 @@ public class Plant {
     }
 
     public String getName() {
-            return name;
-        }
-    public void setName(String name) {
-            this.name = name;
-        }
-        public String getNotes() {
-            return notes;
-        }
-
-        public void setNotes(String notes) {
-            this.notes = notes;
-        }
-
-        public LocalDate getPlanted() {
-            return planted;
-        }
-
-        public void setPlanted(LocalDate planted) {
-            this.planted = planted;
-        }
-
-        public LocalDate getWatering() {
-            return watering;
-        }
-
-        public void setWatering(LocalDate watering) {
-            this.watering = watering;
-        }
-
-        public int getFrequencyOfWatering() {
-            return frequencyOfWatering;
-        }
-
-        public void setFrequencyOfWatering(int frequencyOfWatering) {
-            this.frequencyOfWatering = frequencyOfWatering;
-        }
+        return name;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public LocalDate getPlanted() {
+        return planted;
+    }
+
+    public void setPlanted(LocalDate planted) {
+        this.planted = planted;
+    }
+
+    public LocalDate getWatering() {
+        return watering;
+    }
+
+    public void setWatering(LocalDate watering) {
+        this.watering = watering;
+    }
+
+    public int getFrequencyOfWatering() {
+        return frequencyOfWatering;
+    }
+
+    public void setFrequencyOfWatering(int frequencyOfWatering) {
+        this.frequencyOfWatering = frequencyOfWatering;
+    }
+}
