@@ -9,28 +9,31 @@ public class Plant {
     private LocalDate watering; //datum poslední zálivky
     private int frequencyOfWatering; //frekvence zálivky
 
-    public Plant(String name, String notes, LocalDate planted, LocalDate watering, int frequencyOfWatering) {
+    public Plant(String name, String notes, int frequencyOfWatering, LocalDate planted, LocalDate watering) {
         this.name = name;
         this.notes = notes;
+        this.frequencyOfWatering = frequencyOfWatering;
         this.planted = planted;
         this.watering = watering;
-        this.frequencyOfWatering = frequencyOfWatering;
+
     }
 
-    public Plant(String name, LocalDate planted, int frequencyOfWatering) {
+    public Plant(String name, int frequencyOfWatering, LocalDate planted) {
         this.name = name;
         this.notes = "";
+        this.frequencyOfWatering = frequencyOfWatering;
         this.planted = planted;
         this.watering = LocalDate.now();
-        this.frequencyOfWatering = frequencyOfWatering;
+
     }
 
     public Plant(String name) {
         this.name = name;
         this.notes = "";
+        this.frequencyOfWatering = 7;
         this.planted = LocalDate.now();
         this.watering = LocalDate.now();
-        this.frequencyOfWatering = 7;
+
     }
 
     public String getName() {
@@ -61,7 +64,11 @@ public class Plant {
         return watering;
     }
 
-    public void setWatering(LocalDate watering) {
+    // Ošetření zadávání datumu zálivky vs. datum zasazení)
+    public void setWatering(LocalDate watering) throws PlantException {
+        if(getWatering().compareTo(getPlanted()) <0) {
+            throw new PlantException("Datum zálivky, které jste zadali: "+ getWatering() + "nesmí být starší než datum zasazení rostliny, tj.: "+getPlanted()+".");
+        }
         this.watering = watering;
     }
 
@@ -76,6 +83,9 @@ public class Plant {
         }
         this.frequencyOfWatering = frequencyOfWatering;
     }
+
+
+
     public String getWateringInfo(){
         System.out.println(getName()+ ";" +getWatering()+ ";"+getFrequencyOfWatering());
         return getWateringInfo();
