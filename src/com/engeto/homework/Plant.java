@@ -5,9 +5,9 @@ import java.time.LocalDate;
 public class Plant {
     private String name;
     private String notes;
-    private LocalDate planted;
-    private LocalDate watering;
-    private int frequencyOfWatering;
+    private LocalDate planted;  //datum zasazení
+    private LocalDate watering; //datum poslední zálivky
+    private int frequencyOfWatering; //frekvence zálivky
 
     public Plant(String name, String notes, LocalDate planted, LocalDate watering, int frequencyOfWatering) {
         this.name = name;
@@ -69,7 +69,19 @@ public class Plant {
         return frequencyOfWatering;
     }
 
-    public void setFrequencyOfWatering(int frequencyOfWatering) {
+    // Ošetření zadávání frekvence zálivky (0 nebo záporné číslo)
+    public void setFrequencyOfWatering(int frequencyOfWatering) throws PlantException {
+        if(frequencyOfWatering <=0){
+            throw new PlantException("Frekvence zálivky musí být větší než 0. Zadaná hodnota je "+frequencyOfWatering+".");
+        }
         this.frequencyOfWatering = frequencyOfWatering;
     }
+    public String getWateringInfo(){
+        System.out.println(getName()+ ";" +getWatering()+ ";"+getFrequencyOfWatering());
+        return getWateringInfo();
+    }
+
+
+
+
 }
