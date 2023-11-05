@@ -1,15 +1,19 @@
 package com.engeto.homework;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.time.LocalDate;
+import java.util.Scanner;
 
-public class Plant {
+public class Plant implements Comparable<Plant> {
     private String name;
     private String notes;
     private LocalDate planted;  //datum zasazení
     private LocalDate watering; //datum poslední zálivky
     private int frequencyOfWatering; //frekvence zálivky
 
-    public Plant(String name, String notes, int frequencyOfWatering, LocalDate planted, LocalDate watering) {
+    public Plant() {
         this.name = name;
         this.notes = notes;
         this.frequencyOfWatering = frequencyOfWatering;
@@ -86,12 +90,29 @@ public class Plant {
 
 
 
-    public String getWateringInfo(){
-        System.out.println(getName()+ ";" +getWatering()+ ";"+getFrequencyOfWatering());
-        return getWateringInfo();
+//    public String getWateringInfo(){
+//        LocalDate getWateringInfo=
+//        System.out.println(getName()+ ";" +getWatering()+ ";"+getFrequencyOfWatering());
+//        return getWateringInfo();
+//    }
+
+    //Načtení souboru a ošetření chyb
+    public static Plant loadFromFile (String filename) throws PlantException {
+        Plant result = new Plant();
+        int line = 1;
+        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)))){
+            while (scanner.hasNextLine()) {
+                System.out.println(line);
+            }
+        } catch (FileNotFoundException e){
+            throw new PlantException("Nepodařilo se nalézt soubor "+filename+": "+e.getLocalizedMessage());
+        }
+        return result;
     }
 
 
-
-
+    @Override
+    public int compareTo(Plant o) {
+        return name.compareTo(getName());
+    }
 }

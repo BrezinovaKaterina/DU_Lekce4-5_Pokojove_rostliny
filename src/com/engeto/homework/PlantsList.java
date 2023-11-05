@@ -1,5 +1,6 @@
 package com.engeto.homework;
 
+import javax.sound.sampled.Line;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -33,6 +34,5 @@ public class PlantsList {
         this.listOfPlants = new ArrayList<>(ListOfNewPlants);
     }
 
-     //Načtení souboru a ošetření chyb
 
 }
