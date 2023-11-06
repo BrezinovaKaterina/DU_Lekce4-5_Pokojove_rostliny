@@ -10,12 +10,14 @@ public class Main {
     public static final String FILENAME = "kvetiny.txt";
     public static void main(String[] args) {
 
-            // Testovací kytka pro fungování metod
-            System.out.println("Testovací kytka pro fungování metod");
-            Plant plant1 = new Plant("Testovací kytka",7,LocalDate.of(2023,11,1));
-            List<Plant> listOfPlants = new ArrayList<>();
-            listOfPlants.add(plant1);
 
-            System.out.println(listOfPlants);
+
+        Plant plantsFromFile;
+        try {
+            plantsFromFile = Plant.loadFromFile(FILENAME);
+            System.out.println(plantsFromFile.getName());
+        } catch (PlantException e) {
+            System.err.println("Chyba při čtení souboru: "+e.getLocalizedMessage());
+        }
     }
 }

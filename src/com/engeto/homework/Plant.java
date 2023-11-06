@@ -1,8 +1,6 @@
 package com.engeto.homework;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -13,7 +11,7 @@ public class Plant implements Comparable<Plant> {
     private LocalDate watering; //datum poslední zálivky
     private int frequencyOfWatering; //frekvence zálivky
 
-    public Plant() {
+    public Plant(String name, String notes, int frequencyOfWatering, LocalDate planted, LocalDate watering) {
         this.name = name;
         this.notes = notes;
         this.frequencyOfWatering = frequencyOfWatering;
@@ -73,6 +71,11 @@ public class Plant implements Comparable<Plant> {
         return (LocalDate) getWateringInfo();
     }
 
+      private Plant newPlant() {
+          return newPlant();
+      }
+
+
     // Ošetření zadávání datumu zálivky vs. datum zasazení)
     public void setWatering(LocalDate watering) throws PlantException {
         if(getWatering().compareTo(getPlanted()) <0) {
@@ -98,7 +101,7 @@ public class Plant implements Comparable<Plant> {
 
     //Načtení souboru (chybný soubor)
     public static Plant loadFromFile (String filename) throws PlantException {
-        Plant result = new Plant();
+        Plant result = new Plant(filename);
         int lineNumber = 1;
         try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)))){  // otevření souboru
             while (scanner.hasNextLine()) {  // načtení řádku dokud je k dispozici
@@ -109,7 +112,7 @@ public class Plant implements Comparable<Plant> {
         } catch (FileNotFoundException e){
             throw new PlantException("Nepodařilo se nalézt soubor "+filename+": "+e.getLocalizedMessage());
         }
-        return result;
+        return result.newPlant();
     }
 
     private static Plant parsePlant(String line, Plant plant, int LineNumber) throws PlantException {
@@ -140,13 +143,19 @@ public class Plant implements Comparable<Plant> {
         } catch (NumberFormatException e){
             throw new PlantException("Chybný formát datumu poslední zálivky: "+blocks[4]+"na řádku číslo: "+line+"!");
         }
-        Plant newPlant = new Plant();
+        Plant newPlant = new Plant(name, notes, frequencyOfWatering,planted, watering);
         return newPlant;
     }
 
+
+
     //Uložení aktualizovaného seznamu květin
-
-
+    public static void saveToFile (String filename, Plant plant) throws PlantException {
+        try (PrintWriter writer = new PrintWriter(new BufferedWriter(new FileWriter(filename)))) {
+        } catch (IOException e) {
+            throw new PlantException("Chyba při zápisu do souboru: "+filename+e.getLocalizedMessage());
+        }
+    }
 
     @Override
     public int compareTo(Plant o) {
