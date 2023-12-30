@@ -6,16 +6,15 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.engeto.homework.PlantsList.loadFromFile;
+
 public class Main {
-    public static final String FILENAME = "kvetiny.txt";
     public static void main(String[] args) {
 
-
-
-        Plant plantsFromFile;
+        PlantsList plantsFromFile;
         try {
-            plantsFromFile = Plant.loadFromFile(FILENAME);
-            System.out.println(plantsFromFile.getName());
+            plantsFromFile = PlantsList.loadFromFile("kvetiny.txt");
+            System.out.println(plantsFromFile.getListOfPlants());
         } catch (PlantException e) {
             System.err.println("Chyba při čtení souboru: "+e.getLocalizedMessage());
         }

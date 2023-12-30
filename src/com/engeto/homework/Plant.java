@@ -2,7 +2,6 @@ package com.engeto.homework;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.Scanner;
 
 public class Plant implements Comparable<Plant> {
     private String name;
@@ -11,7 +10,7 @@ public class Plant implements Comparable<Plant> {
     private LocalDate watering; //datum poslední zálivky
     private int frequencyOfWatering; //frekvence zálivky
 
-    public Plant(String name, String notes, int frequencyOfWatering, LocalDate planted, LocalDate watering) {
+    public Plant() {
         this.name = name;
         this.notes = notes;
         this.frequencyOfWatering = frequencyOfWatering;
@@ -97,56 +96,6 @@ public class Plant implements Comparable<Plant> {
         }
         this.frequencyOfWatering = frequencyOfWatering;
     }
-
-
-    //Načtení souboru (chybný soubor)
-    public static Plant loadFromFile (String filename) throws PlantException {
-        Plant result = new Plant(filename);
-        int lineNumber = 1;
-        try (Scanner scanner = new Scanner(new BufferedReader(new FileReader(filename)))){  // otevření souboru
-            while (scanner.hasNextLine()) {  // načtení řádku dokud je k dispozici
-               String line = scanner.nextLine();
-               parsePlant(line, result, lineNumber);
-               lineNumber++;
-            }
-        } catch (FileNotFoundException e){
-            throw new PlantException("Nepodařilo se nalézt soubor "+filename+": "+e.getLocalizedMessage());
-        }
-        return result.newPlant();
-    }
-
-    private static Plant parsePlant(String line, Plant plant, int LineNumber) throws PlantException {
-        String[] blocks = line.split("\t");
-        int numberOfBlocks = blocks.length;
-        if (numberOfBlocks !=5) {
-            throw new PlantException(
-                    "Nesprávný počet položek na řádku č: "+line+"! Počet položek v souboru: "+
-                            numberOfBlocks+".");
-        }
-        String name = blocks[0].trim();
-        String notes = blocks[1].trim();
-        int frequencyOfWatering;
-        try {
-            frequencyOfWatering = Integer.parseInt(blocks[2].trim());
-        } catch (NumberFormatException e) {
-            throw new PlantException("Chybně zadané číslo "+blocks[2]+"na řádku číslo: "+line+"!");
-        }
-        LocalDate planted;
-        try {
-            planted = LocalDate.parse(blocks[3].trim());
-        } catch (NumberFormatException e){
-            throw new PlantException("Chybný formát datumu: "+blocks[3]+"na řádku číslo: "+line+"!");
-        }
-        LocalDate watering;
-        try {
-            watering = LocalDate.parse(blocks[4].trim());
-        } catch (NumberFormatException e){
-            throw new PlantException("Chybný formát datumu poslední zálivky: "+blocks[4]+"na řádku číslo: "+line+"!");
-        }
-        Plant newPlant = new Plant(name, notes, frequencyOfWatering,planted, watering);
-        return newPlant;
-    }
-
 
 
     //Uložení aktualizovaného seznamu květin
